@@ -1,0 +1,19 @@
+{
+  "name": "syncdeck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/syncdeck.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha -r esm --reporter=spec test/*-test.js"
+  },
+  "keywords": [],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "esm": "^3.2.22",
+    "mocha": "^6.1.0"
+  }
+}
