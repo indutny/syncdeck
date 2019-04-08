@@ -1,38 +1,45 @@
 <template>
   <div>
-    <template v-if="state === 'over'">
-      All cards used
-    </template>
-    <template v-else-if="state === 'hit'">
-      <button @click.prevent="hit">hit</button>
-      <button @click.prevent="stand">stand</button>
-    </template>
-    <template v-else>
-      <template v-if="state === 'draw'">
-        It's a draw!
-      </template>
-      <template v-else>
-        You {{ state === 'win' ? 'won' : 'lost' }}
-      </template>
-      <button @click.prevent="restart">restart</button>
-    </template>
-
-    <section class="dealer">
-      <section class="score" v-if="state !== 'hit'">{{ dealerScore }}</section>
-      <section class="cards">
-        <span class="card" v-for="(card, i) in dealer" :key="i">
-          {{ (i === 0 && state === 'hit') ? '🂠' : card.toString() }}
-        </span>
-      </section>
+    <section class="description mb-1">
     </section>
 
-    <section class="player">
-      <section class="score">{{ playerScore }}</section>
-      <section class="cards">
-        <span class="card"
-            v-for="(card, i) in player" :key="i">
-          {{ card.toString() }}
-        </span>
+    <section class="table">
+      <section class="dealer mb-1">
+        <section :class="`score ${state === 'hit' ? 'hidden' : ''}`">
+          {{ dealerScore }}
+        </section>
+        <section class="cards">
+          <template v-for="(card, i) in dealer">
+            <Card :card="null" :key="i" v-if="i === 0 && state === 'hit'"/>
+            <Card :card="card" :key="i" v-else/>
+          </template>
+        </section>
+      </section>
+
+      <section class="player mb-1">
+        <section class="score">{{ playerScore }}</section>
+        <section class="cards">
+          <Card v-for="(card, i) in player" :key="i" :card="card"/>
+        </section>
+      </section>
+
+      <section class="buttons">
+        <template v-if="state === 'over'">
+          All cards used
+        </template>
+        <template v-else-if="state === 'hit'">
+          <button @click.prevent="hit">hit</button>
+          <button @click.prevent="stand">stand</button>
+        </template>
+        <template v-else>
+          <template v-if="state === 'draw'">
+            It's a draw!
+          </template>
+          <template v-else>
+            You {{ state === 'win' ? 'won' : 'lost' }}
+          </template>
+          <button @click.prevent="restart">restart</button>
+        </template>
       </section>
     </section>
   </div>
@@ -40,11 +47,13 @@
 
 <script>
 import Deck from '../common/deck';
+import Card from './card';
 
 import * as BN from 'bn.js';
 
 export default {
   name: 'BlackJack',
+  components: { Card },
 
   data() {
     const seed = new BN(this.$route.params.seed, 16);
@@ -158,7 +167,11 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  font-size: 96px;
+.hidden {
+  visibility: hidden;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 </style>
