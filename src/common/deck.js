@@ -35,4 +35,12 @@ export default class Deck {
     }
     return new Card(this.deck.pop());
   }
+
+  entropy() {
+    let res = 0;
+    for (let i = 1; i <= 52 - this.deck.length; i++) {
+      res += Math.log2(i);
+    }
+    return res;
+  }
 }

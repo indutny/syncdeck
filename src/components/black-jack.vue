@@ -38,6 +38,9 @@
       <button @click.prevent="randomize">Randomize seed</button>
     </section>
 
+    <h3>Verification progress:</h3>
+    <progress class="entropy" max="225" :value="entropy"/>
+
     <section class="table">
       <section class="dealer mb-1">
         <h3>Dealer's hand:</h3>
@@ -64,7 +67,7 @@
 
       <section class="buttons">
         <template v-if="state === 'over'">
-          All cards used
+          All cards used. You verified whole Security Number.
         </template>
         <template v-else-if="state === 'hit'">
           <button @click.prevent="hit">hit</button>
@@ -214,7 +217,10 @@ export default {
     },
     dealerScore() {
       return this.score(this.dealer);
-    }
+    },
+    entropy() {
+      return this.deck.entropy();
+    },
   }
 }
 </script>
@@ -236,5 +242,9 @@ export default {
 
 h3, .score {
   color: white;
+}
+
+.entropy {
+  width: 100%;
 }
 </style>
