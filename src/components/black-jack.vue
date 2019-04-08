@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="description mb-1">
-      <h1>Security Code verification through a Blackjack game</h1>
+      <h1>Safety Number verification through a Blackjack game</h1>
 
       <p>
         Applications like <a href="https://www.signal.org/">Signal</a> provide
@@ -13,22 +13,22 @@
 
       <p>
         In order to prevent such Man-in-The-Middle attacks (MiTM) each chat has
-        a so called Security Code. Users are supposed to either meet in person
+        a so called Safety Number. Users are supposed to either meet in person
         or find a secure channel to independently verify that they both have the
-        same Security Code. However, in reality this rarely happens due to
+        same Safety Number. However, in reality this rarely happens due to
         lack of understanding of importance and dullness of the process.
       </p>
 
       <p>
         This project is a Proof-of-Concept of gamification of the verification
-        process. Instead of checking the Security Code digit-by-digit, users are
+        process. Instead of checking the Safety Number digit-by-digit, users are
         asked to play a game (Blackjack in this case) on two devices
         simultaneously (likely in person), and verify that they both
         get the same cards when doing the same action.
       </p>
 
       <p>
-        The Security Code in this case is used to shuffle the deck of card in a
+        The Safety Number in this case is used to shuffle the deck of card in a
         unique way (the particular order of the deck is equivalent to 225 bits
         of entropy). Thus differences in the security code would result in
         different cards played, and users will have a good chance at spotting
