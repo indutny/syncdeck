@@ -1,19 +1,44 @@
 {
   "name": "syncdeck",
-  "version": "1.0.0",
-  "description": "",
-  "main": "lib/syncdeck.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "mocha -r esm --reporter=spec test/*-test.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "keywords": [],
-  "author": "Fedor Indutny <fedor@indutny.com>",
-  "license": "MIT",
+  "dependencies": {
+    "bn.js": "^4.11.8",
+    "core-js": "^2.6.5",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.2"
+  },
   "devDependencies": {
-    "esm": "^3.2.22",
-    "mocha": "^6.1.0"
-  }
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {}
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

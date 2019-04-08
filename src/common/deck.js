@@ -8,9 +8,9 @@ export default class Deck {
     }
 
     const deck = [];
-    for (let i = 52n; i > 0n; i--) {
-      const index = Number(seed % i);
-      seed /= i;
+    for (let i = 52; i > 0; i--) {
+      const index = seed.modn(i);
+      seed.idivn(i);
 
       deck.push(cards[index]);
       cards.splice(index, 1);
@@ -18,8 +18,12 @@ export default class Deck {
     this.deck = deck;
   }
 
+  isEmpty() {
+    return this.deck.length === 0;
+  }
+
   take() {
-    if (this.deck.length === 0) {
+    if (this.isEmpty()) {
       return null;
     }
     return new Card(this.deck.shift());
