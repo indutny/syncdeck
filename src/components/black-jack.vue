@@ -233,4 +233,8 @@ export default {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 0.25rem;
 }
+
+h3, .score {
+  color: white;
+}
 </style>
