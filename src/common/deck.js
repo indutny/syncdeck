@@ -28,4 +28,11 @@ export default class Deck {
     }
     return new Card(this.deck.shift());
   }
+
+  takeLast() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return new Card(this.deck.pop());
+  }
 }

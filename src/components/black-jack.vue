@@ -54,7 +54,7 @@ export default {
       deck,
       state: 'hit',
       dealer: [ deck.take(), deck.take() ],
-      player: [ deck.take(), deck.take() ],
+      player: [ deck.takeLast(), deck.takeLast() ],
     };
   },
 
@@ -64,7 +64,7 @@ export default {
         return;
       }
 
-      const card = this.deck.take();
+      const card = this.deck.takeLast();
       if (!card) {
         this.state = 'over';
         return;
@@ -113,7 +113,7 @@ export default {
       this.player = [];
 
       for (let i = 0; i < 4; i++) {
-        let card = this.deck.take();
+        let card = i < 2 ? this.deck.take() : this.deck.takeLast();
         if (!card) {
           this.state = 'over';
           return;
