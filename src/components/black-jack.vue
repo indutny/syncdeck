@@ -1,12 +1,48 @@
 <template>
   <div>
     <section class="description mb-1">
+      <h1>Security Code verification through a Blackjack game</h1>
+
+      <p>
+        Applications like <a href="https://www.signal.org/">Signal</a> provide
+        means of secure communication using end-to-end encryption. Although
+        cryptography is used to make the content of the chat undecipherable, the
+        chats still could be eavesdropped by a malicious third-party if
+        users are not careful enough.
+      </p>
+
+      <p>
+        In order to prevent such Man-in-The-Middle attacks (MiTM) each chat has
+        a so called Security Code. Users are supposed to either meet in person
+        or find a secure channel to independently verify that they both have the
+        same Security Code. However, in reality this rarely happens due to
+        lack of understanding of importance and dullness of the process.
+      </p>
+
+      <p>
+        This project is a Proof-of-Concept of gamification of the verification
+        process. Instead of checking the Security Code digit-by-digit, users are
+        asked to play a game (Blackjack in this case), and verify that they both
+        got the same cards.
+      </p>
+
+      <p>
+        The Security Code in this case is used to shuffle the deck of card in a
+        unique way (the particular order of the deck is equivalent to 225 bits
+        of entropy). Thus differences in the security code would result in
+        different cards played, and users will have a good chance at spotting
+        it.
+      </p>
+
+      <button @click.prevent="randomize">Randomize seed</button>
     </section>
 
     <section class="table">
       <section class="dealer mb-1">
+        <h3>Dealer's hand:</h3>
+
         <section :class="`score ${state === 'hit' ? 'hidden' : ''}`">
-          {{ dealerScore }}
+          Score: {{ dealerScore }}
         </section>
         <section class="cards">
           <template v-for="(card, i) in dealer">
@@ -17,7 +53,9 @@
       </section>
 
       <section class="player mb-1">
-        <section class="score">{{ playerScore }}</section>
+        <h3>Player's hand:</h3>
+
+        <section class="score">Score: {{ playerScore }}</section>
         <section class="cards">
           <Card v-for="(card, i) in player" :key="i" :card="card"/>
         </section>
@@ -47,6 +85,7 @@
 
 <script>
 import Deck from '../common/deck';
+import { generate } from '../common/seed';
 import Card from './card';
 
 import * as BN from 'bn.js';
@@ -153,6 +192,19 @@ export default {
 
       return sum;
     },
+
+    randomize() {
+      let seed = generate();
+      this.$router.replace('/play/' + seed);
+
+      // TODO(indutny): why do we need this?
+      seed = new BN(seed, 16);
+      const deck = new Deck(seed);
+      this.deck = deck;
+      this.state = 'hit';
+      this.dealer = [ deck.take(), deck.take() ];
+      this.player = [ deck.takeLast(), deck.takeLast() ];
+    }
   },
 
   computed: {
@@ -173,5 +225,11 @@ export default {
 
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+
+.buttons, .description {
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.25rem;
 }
 </style>

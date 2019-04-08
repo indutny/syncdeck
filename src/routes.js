@@ -1,7 +1,13 @@
+import { generate } from './common/seed';
+
 import BlackJack from './components/black-jack.vue';
-import Home from './components/home.vue';
 
 export default [
-  { path: '/', component: Home },
-  { path: '/blackjack/:seed', component: BlackJack },
+  {
+    path: '/',
+    redirect() {
+      return '/play/' + generate();
+    },
+  },
+  { path: '/play/:seed', component: BlackJack },
 ];
