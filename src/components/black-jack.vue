@@ -22,8 +22,9 @@
       <p>
         This project is a Proof-of-Concept of gamification of the verification
         process. Instead of checking the Security Code digit-by-digit, users are
-        asked to play a game (Blackjack in this case), and verify that they both
-        got the same cards.
+        asked to play a game (Blackjack in this case) on two devices
+        simultaneously (likely in person), and verify that they both
+        get the same cards when doing the same action.
       </p>
 
       <p>
