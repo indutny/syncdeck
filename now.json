@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "syncdeck",
-  "alias": [ "syncdeck" ],
+  "alias": [ "deck-safety" ],
   "builds": [
     {"src": "package.json", "use": "@now/static-build"}
   ],
