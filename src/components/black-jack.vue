@@ -69,7 +69,7 @@
 
       <section class="buttons">
         <template v-if="state === 'over'">
-          All cards used. You verified whole Security Number.
+          All cards used. You verified whole Safety Number.
         </template>
         <template v-else-if="state === 'hit'">
           <button @click.prevent="hit">hit</button>
