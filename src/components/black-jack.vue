@@ -141,7 +141,7 @@ export default {
         return;
       }
 
-      while (this.dealerScore < this.playerScore) {
+      while (this.dealerScore < Math.max(17, this.playerScore)) {
         const card = this.deck.take();
         if (!card) {
           this.state = 'over';
