@@ -59,7 +59,9 @@
       <section class="player mb-1">
         <h3>Player's hand:</h3>
 
-        <section class="score">Score: {{ playerScore }}</section>
+        <section class="score">
+          Score: {{ playerScore }}, Funds: {{ funds }}💰
+        </section>
         <section class="cards">
           <Card v-for="(card, i) in player" :key="i" :card="card"/>
         </section>
@@ -80,7 +82,7 @@
           <template v-else>
             You {{ state === 'win' ? 'won' : 'lost' }}
           </template>
-          <button @click.prevent="restart">restart</button>
+          <button @click.prevent="next">next</button>
         </template>
       </section>
     </section>
@@ -94,6 +96,8 @@ import Card from './card';
 
 import * as BN from 'bn.js';
 
+const INITIAL_FUNDS = 1000;
+
 export default {
   name: 'BlackJack',
   components: { Card },
@@ -105,6 +109,7 @@ export default {
     return {
       deck,
       state: 'hit',
+      funds: INITIAL_FUNDS,
       dealer: [ deck.take(), deck.take() ],
       player: [ deck.takeLast(), deck.takeLast() ],
     };
@@ -127,6 +132,7 @@ export default {
         return this.stand();
       } else if (this.playerScore > 21) {
         this.state = 'lose';
+        this.funds -= 100;
       }
     },
 
@@ -148,14 +154,16 @@ export default {
       if (this.dealerScore <= 21 &&
           this.dealerScore > this.playerScore) {
         this.state = 'lose';
+        this.funds -= 100;
       } else if (this.dealerScore === this.playerScore) {
         this.state = 'draw';
       } else {
         this.state = 'win';
+        this.funds += 100;
       }
     },
 
-    restart() {
+    next() {
       if (this.state === 'over') {
         return;
       }
@@ -205,6 +213,7 @@ export default {
       seed = new BN(seed, 16);
       const deck = new Deck(seed);
       this.deck = deck;
+      this.funds = INITIAL_FUNDS;
       this.state = 'hit';
       this.dealer = [ deck.take(), deck.take() ];
       this.player = [ deck.takeLast(), deck.takeLast() ];
