@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "syncdeck",
+  "alias": [ "syncdeck" ],
   "builds": [
     {"src": "package.json", "use": "@now/static-build"}
   ],
